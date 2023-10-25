@@ -6,7 +6,7 @@ include {bamstats} from './modules/bamstats.nf'
 include {samfilter} from './modules/samfilter.nf'
 include {samfastq} from './modules/samfastq.nf'
 include {kraken} from './modules/kraken.nf'
-
+include {compile} from './modules/compile.nf'
 
 
 workflow {
@@ -25,6 +25,7 @@ workflow {
 		samfilter(bwamem.out.aligned_bam)
 		samfastq(samfilter.out.filtered_bam)
 		kraken(samfastq.out.filtered_fastq, params.k2database)
+		compile(kraken.out.k2report)
 		
 }	
 

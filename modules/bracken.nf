@@ -1,11 +1,10 @@
 process kraken {
-//	container 'staphb/kraken2:2.1.2-no-db'
-	container 'staphb/kraken2:2.1.3'
+	container 'nanozoo/bracken:2.8--dcb3e47'
 
-	tag "identifying sequences"
+	tag "filtering kraken results"
 
 	publishDir (
-	path: "${params.out_dir}/$sample/04_kraken/",
+	path: "${params.out_dir}/bracken_reports/",
 	mode: 'copy',
 	overwrite: 'true'
 	)
@@ -15,7 +14,7 @@ process kraken {
 	path(k2database)
 
 	output:
-	tuple val(sample), path("*k2report.txt"), emit: k2report
+	tuple val(sample), file("*k2report.txt")
 	tuple val(sample), file("*k2output.txt")
 	tuple val(sample), file("*classified.fasta")
 	tuple val(sample), file("*unclassified.fasta")
